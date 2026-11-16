@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/operacoes.h"
+#include "operacoes.h"
 
 int main(){
     Playlist minhaPlaylist;

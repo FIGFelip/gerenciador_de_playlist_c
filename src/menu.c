@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/operacoes.h"
+#include "operacoes.h"
 #include "playlist.h"
 
 void exibirMenu(Playlist *playlist)
@@ -23,6 +23,7 @@ void exibirMenu(Playlist *playlist)
         switch (opcao)
         {
         case 1:
+        {
             char nome[100];
             char artista[100];
             int duracao;
@@ -44,7 +45,9 @@ void exibirMenu(Playlist *playlist)
                 printf("Erro ao alocar memória para música\n");
             }
             break;
+        }
         case 2:
+        {
             char musicaRemover[100];
             // printf("Implementação em breve...\n");
             printf("Nome da música: ");
@@ -58,7 +61,10 @@ void exibirMenu(Playlist *playlist)
                 printf("Erro ao remover música\n");
             }
             break;
+        }
+
         case 3:
+        {
             Musica *proxima = avancarMusica(playlist);
             if (proxima != NULL)
             {
@@ -69,7 +75,10 @@ void exibirMenu(Playlist *playlist)
                 printf("Erro ao avançar música\n");
             }
             break;
+        }
+
         case 4:
+        {
             Musica *anterior = retrocederMusica(playlist);
             if (anterior != NULL)
             {
@@ -80,7 +89,10 @@ void exibirMenu(Playlist *playlist)
                 printf("Erro ao retroceder música\n");
             }
             break;
+        }
+
         case 5:
+        {
             Musica *atual = consultarAtual(playlist);
             if (atual != NULL)
             {
@@ -91,6 +103,8 @@ void exibirMenu(Playlist *playlist)
                 printf("Erro ao consultar atual\n");
             }
             break;
+        }
+
         case 0:
             printf("Saindo...\n");
             break;
