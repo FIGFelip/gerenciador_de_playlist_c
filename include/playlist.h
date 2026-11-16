@@ -1,5 +1,17 @@
+
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
-// TODO: Criar definicao da struct playlist
-// e definicao das funcoes de inicializacao e destruicao
+
+#include "musicas.h"
+
+typedef struct Playlist {
+    Musica *inicio;
+    Musica *fim;
+    Musica *atual;
+    int tamanho;
+} Playlist;
+
+void inicializarPlaylist(Playlist *playlist);
+void destruirPlaylist(Playlist *playlist);
+
 #endif
