@@ -1,7 +1,10 @@
 #include <stdio.h>
-#include "../include/operacoes.h"
+#include "operacoes.h"
 
 int main(){
-    exibirMenu();
+    Playlist minhaPlaylist;
+    inicializarPlaylist(&minhaPlaylist);
+    exibirMenu(&minhaPlaylist);
+    destruirPlaylist(&minhaPlaylist);
     return 0;
 }
