@@ -1,0 +1,23 @@
+# Build artifacts
+src/output/
+*.o
+*.out
+*.exe
+
+# Makefile generated
+*.d
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs / temporários
+*.log
+*.tmp
