@@ -5,18 +5,26 @@
 
 Musica *avancarMusica(Playlist *playlist)
 {
-    // TODO:preencher função
-    return NULL;
+    if (!playlist || !playlist->atual || !playlist->atual->proximo) {
+        return NULL;
+    }
+    playlist->atual = playlist->atual->proximo;
+    return playlist->atual;
 }
 
 Musica *retrocederMusica(Playlist *playlist)
 {
-    // TODO:preencher função
-    return NULL;
+    if (!playlist || !playlist->atual || !playlist->atual->anterior) {
+        return NULL;
+    }
+    playlist->atual = playlist->atual->anterior;
+    return playlist->atual;
 }
 
 Musica *consultarAtual(Playlist *playlist)
 {
-    // TODO:preencher função
-    return NULL;
+    if (!playlist) {
+        return NULL;
+    }
+    return playlist->atual;
 }
