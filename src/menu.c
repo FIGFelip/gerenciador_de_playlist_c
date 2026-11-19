@@ -27,7 +27,6 @@ void exibirMenu(Playlist *playlist)
             char nome[100];
             char artista[100];
             int duracao;
-            // printf("Implementação em breve...\n");
             printf("Nome da música: ");
             scanf(" %[^\n]", nome);
 
@@ -36,72 +35,172 @@ void exibirMenu(Playlist *playlist)
 
             printf("Duração (segundos): ");
             scanf("%d", &duracao);
-            if (inserirMusica(playlist, nome, artista, duracao))
+            InsercaoStatus status = inserirMusica(
+                playlist,
+                nome,
+                artista,
+                duracao);
+
+            switch (status)
             {
-                printf("Música adicionada!\n");
-            }
-            else
-            {
-                printf("Erro ao alocar memória para música\n");
+            case INSERCAO_OK:
+                printf("Musica inserida com sucesso.\n");
+                break;
+
+            case INSERCAO_PLAYLIST_INVALIDA:
+                printf("Playlist invalida.\n");
+                break;
+
+            case INSERCAO_NOME_INVALIDO:
+                printf("Nome da musica invalido.\n");
+                break;
+
+            case INSERCAO_ARTISTA_INVALIDO:
+                printf("Nome do artista invalido.\n");
+                break;
+
+            case INSERCAO_DURACAO_INVALIDA:
+                printf("Duracao invalida.\n");
+                break;
+
+            case INSERCAO_NOME_MUITO_LONGO:
+                printf("Nome da musica excede o limite permitido.\n");
+                break;
+
+            case INSERCAO_ARTISTA_MUITO_LONGO:
+                printf("Nome do artista excede o limite permitido.\n");
+                break;
+
+            case INSERCAO_FALHA_ALOCACAO:
+                printf("Falha ao alocar memoria.\n");
+                break;
             }
             break;
         }
         case 2:
         {
             char musicaRemover[100];
-            // printf("Implementação em breve...\n");
+
             printf("Nome da música: ");
             scanf(" %[^\n]", musicaRemover);
-            if (removerMusica(playlist, musicaRemover))
+
+            RemocaoStatus status = removerMusica(
+                playlist,
+                musicaRemover);
+
+            switch (status)
             {
-                printf("Música removida\n");
+
+            case REMOCAO_OK:
+                printf("Música removida!\n");
+                break;
+
+            case REMOCAO_PLAYLIST_INVALIDA:
+                printf("Playlist inválida.\n");
+                break;
+
+            case REMOCAO_NOME_INVALIDO:
+                printf("Nome inválido.\n");
+                break;
+
+            case REMOCAO_PLAYLIST_VAZIA:
+                printf("Playlist vazia.\n");
+                break;
+
+            case REMOCAO_MUSICA_NAO_ENCONTRADA:
+                printf("Música não encontrada.\n");
+                break;
             }
-            else
-            {
-                printf("Erro ao remover música\n");
-            }
+
             break;
         }
 
         case 3:
         {
-            Musica *proxima = avancarMusica(playlist);
-            if (proxima != NULL)
+            Musica *proxima = NULL;
+
+            NavegacaoStatus status = avancarMusica(playlist, &proxima);
+
+            switch (status)
             {
-                printf("Anvançando...Agora tocando: %s - %s\n", proxima->nome, proxima->artista);
+            case NAV_OK:
+                printf("Avancando... Agora tocando: %s - %s\n", proxima->nome, proxima->artista);
+                break;
+
+            case NAV_PLAYLIST_INVALIDA:
+                printf("Playlist invalida.\n");
+                break;
+
+            case NAV_PLAYLIST_VAZIA:
+                printf("Playlist vazia.\n");
+                break;
+
+            case NAV_FIM_LISTA:
+                printf("Ja na ultima musica.\n");
+                break;
             }
-            else
-            {
-                printf("Erro ao avançar música\n");
-            }
+
             break;
         }
 
         case 4:
         {
-            Musica *anterior = retrocederMusica(playlist);
-            if (anterior != NULL)
+            Musica *anterior = NULL;
+
+            NavegacaoStatus status = retrocederMusica(playlist, &anterior);
+
+            switch (status)
             {
-                printf("Voltando...Agora tocando: %s - %s\n", anterior->nome, anterior->artista);
+            case NAV_OK:
+                printf("Voltando... Agora tocando: %s - %s\n", anterior->nome, anterior->artista);
+                break;
+
+            case NAV_PLAYLIST_INVALIDA:
+                printf("Playlist invalida.\n");
+                break;
+
+            case NAV_PLAYLIST_VAZIA:
+                printf("Playlist vazia.\n");
+                break;
+
+            case NAV_FIM_LISTA:
+                printf("Ja na primeira musica.\n");
+                break;
             }
-            else
-            {
-                printf("Erro ao retroceder música\n");
-            }
+
             break;
         }
 
         case 5:
         {
-            Musica *atual = consultarAtual(playlist);
-            if (atual != NULL)
+            Musica *atual = NULL;
+
+            NavegacaoStatus status = consultarAtual(
+                playlist,
+                &atual);
+
+            switch (status)
             {
-                printf("Tocando agora: %s - %s - %ds\n", atual->nome, atual->artista, atual->duracao);
+            case NAV_OK:
+                printf(
+                    "Tocando agora: %s - %s - %ds\n",
+                    atual->nome,
+                    atual->artista,
+                    atual->duracao);
+                break;
+
+            case NAV_PLAYLIST_INVALIDA:
+                printf("Playlist invalida.\n");
+                break;
+
+            case NAV_PLAYLIST_VAZIA:
+                printf("Playlist vazia.\n");
+                break;
+
+            default:
+                break;
             }
-            else
-            {
-                printf("Erro ao consultar atual\n");
-            }
+
             break;
         }
 
