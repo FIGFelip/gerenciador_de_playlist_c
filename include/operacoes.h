@@ -11,12 +11,21 @@ typedef enum {
     REMOCAO_MUSICA_NAO_ENCONTRADA
 } RemocaoStatus;
 
-//menu
+//status de navegação:
+typedef enum {
+    NAV_OK = 0,
+    NAV_PLAYLIST_INVALIDA = 1,
+    NAV_PLAYLIST_VAZIA = 2,
+    NAV_FIM_LISTA = 3
+} NavegacaoStatus;
 
+
+//menu
 void exibirMenu(Playlist *playlist);
+
 int inserirMusica(Playlist *playlist, const char *nome, const char *artista, int duracao);
 RemocaoStatus removerMusica(Playlist *playlist, const char *nome);
-Musica* avancarMusica(Playlist *playlist);
-Musica* retrocederMusica(Playlist *playlist);
-Musica* consultarAtual(Playlist *playlist);
+NavegacaoStatus avancarMusica(Playlist *playlist, Musica **out_musica);
+NavegacaoStatus retrocederMusica(Playlist *playlist, Musica **out_musica);
+NavegacaoStatus consultarAtual(Playlist *playlist, Musica **out_musica);
 #endif
