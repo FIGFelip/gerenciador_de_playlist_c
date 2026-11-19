@@ -4,13 +4,17 @@
 #include "playlist.h"
 
 int inserirMusica(Playlist *playlist, const char *nome, const char *artista, int duracao) {
-    if (playlist == NULL || nome == NULL || artista == NULL || duracao <= 0) {
+    if (playlist == NULL || nome == NULL || artista == NULL || duracao < 0) {
         return 0;
     }
 
     Musica *nova = malloc(sizeof(*nova));
     if (nova == NULL) {
         return 0;
+    }
+
+    if (strlen(nome) >= sizeof(nova->nome) || strlen(artista) >= sizeof(nova->artista)) {
+        goto cleanup;
     }
 
     strcpy(nova->nome, nome);
@@ -29,4 +33,8 @@ int inserirMusica(Playlist *playlist, const char *nome, const char *artista, int
     playlist->fim = nova;
     playlist->tamanho++;
     return 1;
+
+cleanup:
+    free(nova);
+    return 0;
 }
