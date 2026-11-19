@@ -5,6 +5,18 @@
 
 //enumerators para melhor leitura
 // do retorno das funções
+
+//status da inserção
+typedef enum {
+    INSERCAO_OK,
+    INSERCAO_PLAYLIST_INVALIDA,
+    INSERCAO_NOME_INVALIDO,
+    INSERCAO_ARTISTA_INVALIDO,
+    INSERCAO_DURACAO_INVALIDA,
+    INSERCAO_NOME_MUITO_LONGO,
+    INSERCAO_ARTISTA_MUITO_LONGO,
+    INSERCAO_FALHA_ALOCACAO
+} InsercaoStatus;
 //status da remocao
 typedef enum {
     REMOCAO_OK,
@@ -28,7 +40,7 @@ void exibirMenu(Playlist *playlist);
 
 
 //funcoes principais
-int inserirMusica(Playlist *playlist, const char *nome, const char *artista, int duracao);
+InsercaoStatus inserirMusica(Playlist *playlist, const char *nome, const char *artista, int duracao);
 RemocaoStatus removerMusica(Playlist *playlist, const char *nome);
 NavegacaoStatus avancarMusica(Playlist *playlist, Musica **out_musica);
 NavegacaoStatus retrocederMusica(Playlist *playlist, Musica **out_musica);
