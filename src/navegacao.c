@@ -2,6 +2,7 @@
 #include "playlist.h"
 #include "musicas.h"
 #include <stdlib.h>
+#include <assert.h>
 
 NavegacaoStatus avancarMusica(Playlist *playlist, Musica **out_musica) {
     if (out_musica) {
@@ -58,7 +59,7 @@ NavegacaoStatus retrocederMusica( Playlist *playlist, Musica **out_musica) {
     return NAV_OK;
 }
 
-NavegacaoStatus consultarAtual( const Playlist *playlist, Musica **out_musica) {
+NavegacaoStatus consultarAtual(Playlist *playlist, Musica **out_musica) {
     if (out_musica) {
         *out_musica = NULL;
     }

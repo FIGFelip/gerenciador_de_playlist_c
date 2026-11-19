@@ -27,7 +27,6 @@ void exibirMenu(Playlist *playlist)
             char nome[100];
             char artista[100];
             int duracao;
-            // printf("Implementação em breve...\n");
             printf("Nome da música: ");
             scanf(" %[^\n]", nome);
 
@@ -36,30 +35,83 @@ void exibirMenu(Playlist *playlist)
 
             printf("Duração (segundos): ");
             scanf("%d", &duracao);
-            if (inserirMusica(playlist, nome, artista, duracao))
+            InsercaoStatus status = inserirMusica(
+                playlist,
+                nome,
+                artista,
+                duracao);
+
+            switch (status)
             {
-                printf("Música adicionada!\n");
-            }
-            else
-            {
-                printf("Erro ao alocar memória para música\n");
+            case INSERCAO_OK:
+                printf("Musica inserida com sucesso.\n");
+                break;
+
+            case INSERCAO_PLAYLIST_INVALIDA:
+                printf("Playlist invalida.\n");
+                break;
+
+            case INSERCAO_NOME_INVALIDO:
+                printf("Nome da musica invalido.\n");
+                break;
+
+            case INSERCAO_ARTISTA_INVALIDO:
+                printf("Nome do artista invalido.\n");
+                break;
+
+            case INSERCAO_DURACAO_INVALIDA:
+                printf("Duracao invalida.\n");
+                break;
+
+            case INSERCAO_NOME_MUITO_LONGO:
+                printf("Nome da musica excede o limite permitido.\n");
+                break;
+
+            case INSERCAO_ARTISTA_MUITO_LONGO:
+                printf("Nome do artista excede o limite permitido.\n");
+                break;
+
+            case INSERCAO_FALHA_ALOCACAO:
+                printf("Falha ao alocar memoria.\n");
+                break;
             }
             break;
         }
         case 2:
         {
             char musicaRemover[100];
-            printf("Implementação em breve...\n");
+
             printf("Nome da música: ");
             scanf(" %[^\n]", musicaRemover);
-            if (removerMusica(playlist, musicaRemover))
+
+            RemocaoStatus status = removerMusica(
+                playlist,
+                musicaRemover);
+
+            switch (status)
             {
-                printf("Música removida\n");
+
+            case REMOCAO_OK:
+                printf("Música removida!\n");
+                break;
+
+            case REMOCAO_PLAYLIST_INVALIDA:
+                printf("Playlist inválida.\n");
+                break;
+
+            case REMOCAO_NOME_INVALIDO:
+                printf("Nome inválido.\n");
+                break;
+
+            case REMOCAO_PLAYLIST_VAZIA:
+                printf("Playlist vazia.\n");
+                break;
+
+            case REMOCAO_MUSICA_NAO_ENCONTRADA:
+                printf("Música não encontrada.\n");
+                break;
             }
-            else
-            {
-                printf("Erro ao remover música\n");
-            }
+
             break;
         }
 
