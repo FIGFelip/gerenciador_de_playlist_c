@@ -3,7 +3,7 @@
 CC      = gcc
 CFLAGS  = -Wall -Wextra -g3 -Iinclude
 
-TEST_SRC = tests/test_playlist.c src/playlist.c src/inserir.c src/remover.c src/navegacao.c src/musicas.c
+TEST_SRC = tests/test_playlist.c src/playlist.c src/inserir.c src/remover.c src/navegacao.c
 TEST_OBJ = $(TEST_SRC:.c=.o)
 TEST_TARGET = tests/test_playlist
 
