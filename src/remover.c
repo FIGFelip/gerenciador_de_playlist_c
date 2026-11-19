@@ -6,17 +6,17 @@
 
 RemocaoStatus removerMusica(Playlist *playlist, const char *nome) {
 
-    // Valida os parâmetros
+    //Valida os parâmetros
     if (playlist == NULL) {
         return REMOCAO_PLAYLIST_INVALIDA;
     }
     
-    // Abaixo serve para impedir input com nome vazio
+    //Abaixo serve para impedir input com nome vazio
     if (nome == NULL || nome[0] == '\0') {
         return REMOCAO_NOME_INVALIDO;
     }
 
-    // Verifica playlist vazia
+    //Verifica playlist vazia
     if (playlist->inicio == NULL) {
         return REMOCAO_PLAYLIST_VAZIA;
     }
