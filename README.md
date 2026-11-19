@@ -36,4 +36,4 @@ make -f Makefile.test clean
 | **Nicolas Santos** | Implementação da funcionalidade de remoção de músicas. |
 | **Allan Minori** | Implementação das funcionalidades de navegação: avançar, retroceder e consultar a música atual. |
 | **Wilson Brito** | Elaboração da documentação e apoio nas decisões do projeto. |
-| **Raian Luz** | Elaboração da documentação e apoio nas decisões do projeto. |
+| **Raian Luz** | Elaboração da documentação e apoio nas decisões do projeto.  |
