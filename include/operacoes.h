@@ -2,14 +2,35 @@
 #define OPERACOES_H
 #include "musicas.h"
 #include "playlist.h"
-// TODO: Criar definicao das funcoes das operacoes principais
+
+//enumerators para melhor leitura
+// do retorno das funções
+//status da remocao
+typedef enum {
+    REMOCAO_OK,
+    REMOCAO_PLAYLIST_INVALIDA,
+    REMOCAO_NOME_INVALIDO,
+    REMOCAO_PLAYLIST_VAZIA,
+    REMOCAO_MUSICA_NAO_ENCONTRADA
+} RemocaoStatus;
+
+//status da navegação
+typedef enum {
+    NAV_OK = 0,
+    NAV_PLAYLIST_INVALIDA = 1,
+    NAV_PLAYLIST_VAZIA = 2,
+    NAV_FIM_LISTA = 3
+} NavegacaoStatus;
+
 
 //menu
-
 void exibirMenu(Playlist *playlist);
+
+
+//funcoes principais
 int inserirMusica(Playlist *playlist, const char *nome, const char *artista, int duracao);
-int removerMusica(Playlist *playlist, const char *nome);
-Musica* avancarMusica(Playlist *playlist);
-Musica* retrocederMusica(Playlist *playlist);
-Musica* consultarAtual(Playlist *playlist);
+RemocaoStatus removerMusica(Playlist *playlist, const char *nome);
+NavegacaoStatus avancarMusica(Playlist *playlist, Musica **out_musica);
+NavegacaoStatus retrocederMusica(Playlist *playlist, Musica **out_musica);
+NavegacaoStatus consultarAtual(Playlist *playlist, Musica **out_musica);
 #endif
