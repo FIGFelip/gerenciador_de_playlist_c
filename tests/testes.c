@@ -1,11 +1,10 @@
-// Comandos para compilar e executar testes com exemplos
+// Comandos para compilar e executar testes do Gerenciador de Playlist
 
 //-----------------------------------------
-// COMPILAR:
-// gcc -Wall -Wextra -g tests/test_lista.c src/lista.c -o test_lista
+// COMPILAR E EXECUTAR VIA MAKEFILE:
+// make -f Makefile.test run
 
 //-----------------------------------------
-// EXECUTAR:
-// ./test_lista
-
-//TODO: Testes de funcoes exigidas - Prioridade media/baixa
+// COMPILAÇÃO MANUAL:
+// gcc -Wall -Wextra -g3 -Iinclude tests/test_playlist.c src/playlist.c src/inserir.c src/remover.c src/navegacao.c src/musicas.c -o tests/test_playlist
+// ./tests/test_playlist
