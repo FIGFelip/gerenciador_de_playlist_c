@@ -49,17 +49,38 @@ void exibirMenu(Playlist *playlist)
         case 2:
         {
             char musicaRemover[100];
-            printf("Implementação em breve...\n");
+
             printf("Nome da música: ");
             scanf(" %[^\n]", musicaRemover);
-            if (removerMusica(playlist, musicaRemover))
+
+            RemocaoStatus status = removerMusica(
+                playlist,
+                musicaRemover);
+
+            switch (status)
             {
-                printf("Música removida\n");
+
+            case REMOCAO_OK:
+                printf("Música removida!\n");
+                break;
+
+            case REMOCAO_PLAYLIST_INVALIDA:
+                printf("Playlist inválida.\n");
+                break;
+
+            case REMOCAO_NOME_INVALIDO:
+                printf("Nome inválido.\n");
+                break;
+
+            case REMOCAO_PLAYLIST_VAZIA:
+                printf("Playlist vazia.\n");
+                break;
+
+            case REMOCAO_MUSICA_NAO_ENCONTRADA:
+                printf("Música não encontrada.\n");
+                break;
             }
-            else
-            {
-                printf("Erro ao remover música\n");
-            }
+
             break;
         }
 
