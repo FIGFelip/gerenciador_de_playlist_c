@@ -1,20 +1,51 @@
 #include "operacoes.h"
 #include <stdlib.h>
 #include <string.h>
-#include "playlist.h"
 
-int inserirMusica(Playlist *playlist, const char *nome, const char *artista, int duracao) {
-    if (playlist == NULL || nome == NULL || artista == NULL || duracao < 0) {
-        return 0;
+InsercaoStatus inserirMusica(
+    Playlist *playlist,
+    const char *nome,
+    const char *artista,
+    int duracao)
+{
+    //checa playlist inválida
+    if (playlist == NULL)
+    {
+        return INSERCAO_PLAYLIST_INVALIDA;
+    }
+
+    // valida se nome esta vazio
+    if (nome == NULL || nome[0] == '\0')
+    {
+        return INSERCAO_NOME_INVALIDO;
+    }
+    //valida se artista esta vazio
+    if (artista == NULL || artista[0] == '\0')
+    {
+        return INSERCAO_ARTISTA_INVALIDO;
+    }
+    //valida duracao
+    if (duracao <= 0)
+    {
+        return INSERCAO_DURACAO_INVALIDA;
+    }
+
+    //valida tamanho das entradas
+    if (strlen(nome) >= TAM_NOME)
+    {
+        return INSERCAO_NOME_MUITO_LONGO;
+    }
+
+    if (strlen(artista) >= TAM_ARTISTA)
+    {
+        return INSERCAO_ARTISTA_MUITO_LONGO;
     }
 
     Musica *nova = malloc(sizeof(*nova));
-    if (nova == NULL) {
-        return 0;
-    }
 
-    if (strlen(nome) >= sizeof(nova->nome) || strlen(artista) >= sizeof(nova->artista)) {
-        goto cleanup;
+    if (nova == NULL)
+    {
+        return INSERCAO_FALHA_ALOCACAO;
     }
 
     strcpy(nova->nome, nome);
@@ -23,18 +54,18 @@ int inserirMusica(Playlist *playlist, const char *nome, const char *artista, int
     nova->anterior = playlist->fim;
     nova->proximo = NULL;
 
-    if (playlist->fim == NULL) {
+    if (playlist->fim == NULL)
+    {
         playlist->inicio = nova;
         playlist->atual = nova;
-    } else {
+    }
+    else
+    {
         playlist->fim->proximo = nova;
     }
 
     playlist->fim = nova;
     playlist->tamanho++;
-    return 1;
 
-cleanup:
-    free(nova);
-    return 0;
+    return INSERCAO_OK;
 }
