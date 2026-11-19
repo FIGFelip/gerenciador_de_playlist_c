@@ -1,62 +1,66 @@
+
 #include "operacoes.h"
 #include "playlist.h"
 #include <stdlib.h>
 #include <string.h>
 
+RemocaoStatus removerMusica(Playlist *playlist, const char *nome) {
 
-int removerMusica(Playlist *playlist, const char *nome){
-
-    if (playlist == NULL || nome == NULL){
-        return 0;
+    // Valida os parâmetros
+    if (playlist == NULL) {
+        return REMOCAO_PLAYLIST_INVALIDA;
+    }
+    
+    // Abaixo serve para impedir input com nome vazio
+    if (nome == NULL || nome[0] == '\0') {
+        return REMOCAO_NOME_INVALIDO;
     }
 
-    //1. Identificar a música que será removida
+    // Verifica playlist vazia
+    if (playlist->inicio == NULL) {
+        return REMOCAO_PLAYLIST_VAZIA;
+    }
+
+    //Identifica a música a remover
     Musica *alvo = playlist->inicio;
-    while (alvo !=NULL && strcmp(alvo->nome, nome) != 0)
-    {
-        alvo = alvo -> proximo;
+
+    while (alvo != NULL && strcmp(alvo->nome, nome) != 0) {
+        alvo = alvo->proximo;
     }
-    if(alvo == NULL){
-        return 0; // Música não encontrada
-    }   
 
-    if(playlist->atual == alvo){
+    if (alvo == NULL) {
+        return REMOCAO_MUSICA_NAO_ENCONTRADA;
+    }
 
-        if( alvo->proximo != NULL){
+    //Atualiza a música atual, se preciso
+    if (playlist->atual == alvo) {
+
+        if (alvo->proximo != NULL) {
             playlist->atual = alvo->proximo;
-            
         }
-        else if(alvo->anterior != NULL){
-            playlist->atual = alvo->anterior;
-        } 
-        
         else {
-            playlist->atual = NULL;// A playlist está vazia
+            playlist->atual = alvo->anterior;
         }
     }
-    //3. Alterar os ponteiros dos vizinhos
-    if (alvo->anterior !=NULL){
+
+    // Reconecta os nós
+    if (alvo->anterior != NULL) {
         alvo->anterior->proximo = alvo->proximo;
-
     }
-    else{
-        playlist->inicio = alvo-> proximo;
-
+    else {
+        playlist->inicio = alvo->proximo;
     }
 
-    if (alvo->proximo !=NULL){
+    if (alvo->proximo != NULL) {
         alvo->proximo->anterior = alvo->anterior;
     }
-    else{
+    else {
         playlist->fim = alvo->anterior;
     }
-    //4. liberar a memória da música alvo
 
+    // libera memoria e atualiza o tamanho
     free(alvo);
     playlist->tamanho--;
 
-
-    return 1;
-
-
+    return REMOCAO_OK;
 }
