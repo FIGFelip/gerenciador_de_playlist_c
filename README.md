@@ -4,6 +4,12 @@ Projeto desenvolvido em linguagem C para gerenciamento de playlists musicais, ut
 
 ## Como rodar o código
 
+Crie a pasta ```src/output```
+```bash
+mkdir -p src/output
+```
+Rode o código com:
+
 ```bash
 make run
 ```
@@ -14,7 +20,7 @@ make run
 make clean
 ```
 
-## Executando testes
+## Executando os testes
 
 ```bash
 make -f Makefile.test run
@@ -26,7 +32,7 @@ make -f Makefile.test run
 make -f Makefile.test clean
 ```
 
-## Divisão de responsabilidades
+## Divisão de responsabilidades no desenvolvimento do projeto
 
 | Integrante | Responsabilidades |
 |---|---|
